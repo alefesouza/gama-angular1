@@ -17,6 +17,10 @@ export class AppComponent {
     }, 2000);
   }
 
+  addNumber() {
+    this.itens.unshift(Math.random());
+  }
+
   onDeleteItem(item: number) {
     this.itens.splice(item, 1);
   }

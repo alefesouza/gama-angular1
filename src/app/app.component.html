@@ -3,6 +3,8 @@
 <div>Bem-vindo ao meu app</div>
 
 <ul>
+  <button (click)="addNumber()">Adicionar número</button>
+
   <li *ngFor="let item of itens; let i = index">
     <app-todo-item
       avisar="2"
