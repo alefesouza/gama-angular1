@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.css']
 })
-export class TodoItemComponent implements OnInit {
+export class TodoItemComponent implements OnInit, OnChanges, OnDestroy {
+
   counter = 0;
   title = 'Fazer compras';
   @Input() indice: number;
@@ -16,10 +17,20 @@ export class TodoItemComponent implements OnInit {
 
   constructor() { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.indice) {
+      console.log('O índice do item ' + this.item + ' era ' + changes.indice.previousValue + ' e agora é ' + changes.indice.currentValue);
+    }
+  }
+
   ngOnInit() {
     setInterval(() => {
       this.counter++;
     }, 1000);
+  }
+
+  ngOnDestroy() {
+    console.log('O item ' + this.item + ' saiu da tela');
   }
 
   onButtonClick() {
