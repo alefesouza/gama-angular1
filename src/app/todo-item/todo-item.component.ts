@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-item',
@@ -8,22 +8,30 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TodoItemComponent implements OnInit {
   counter = 0;
   title = 'Fazer compras';
-  @Input() item;
-  @Input() avisar;
-  @Input() mostrarContador;
+  @Input() indice: number;
+  @Input() item: number;
+  @Input() avisar: number;
+  @Input() mostrarContador: boolean;
+  @Output() deleteItem = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.item);
-
     setInterval(() => {
       this.counter++;
     }, 1000);
+  }
 
-    setTimeout(() => {
-      this.title = 'Compras feitas';
-    }, 2000);
+  onButtonClick() {
+    this.title = 'Valor mudado';
+  }
+
+  onLogButtonClick(numero: number) {
+    console.log(numero);
+  }
+
+  onDeleteButtonClick(i: number) {
+    this.deleteItem.emit(i);
   }
 
 }

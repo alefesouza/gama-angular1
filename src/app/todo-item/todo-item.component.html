@@ -1,10 +1,35 @@
-<p *ngIf="mostrarContador">
-  Contador: {{ counter }}
-</p>
+<!-- <div>
+  {{ title }}<br>
+  <button (click)="onButtonClick()">Mudar valor</button>
+</div> -->
 
-<div *ngIf="counter > avisar">
+<ul>
+  Valor: {{ item }}<br>
+  Índice: {{ indice }}<br>
+  <div *ngIf="item == 4;">O item é igual a 4</div>
+
+  <button (click)="onLogButtonClick(indice)">Logar</button>
+
+  <button (click)="onDeleteButtonClick(indice)">Apagar</button>
+</ul>
+
+<!-- <p *ngIf="mostrarContador">
+  Contador: {{ counter }}
+</p> -->
+
+<!-- <div>
+  O contador {{ counter > avisar ? '' : 'não' }} é maior que {{ avisar }}
+</div>
+
+<div *ngIf="counter > avisar; else counterElse">
   O contador é maior que {{ avisar }}
 </div>
+
+<ng-template #counterElse>
+  <div>
+    O contador não é maior que {{ avisar }}
+  </div>
+</ng-template> -->
 
 <!-- <p>
   Título: {{ title }}

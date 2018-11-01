@@ -2,7 +2,14 @@
 
 <div>Bem-vindo ao meu app</div>
 
-<app-todo-item [item]="itemApp" avisar="2" [mostrarContador]="true"></app-todo-item>
-
-<app-todo-item [item]="itemApp" avisar="5" [mostrarContador]="false"></app-todo-item>
-
+<ul>
+  <li *ngFor="let item of itens; let i = index">
+    <app-todo-item
+      avisar="2"
+      [mostrarContador]="true"
+      [item]="item"
+      [indice]="i"
+      (deleteItem)="onDeleteItem($event)"
+    ></app-todo-item>
+  </li>
+</ul>
