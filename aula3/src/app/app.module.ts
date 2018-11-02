@@ -9,11 +9,16 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { CepDetailsComponent } from './cep-details/cep-details.component';
+import { CepExibicaoComponent } from './cep-exibicao/cep-exibicao.component';
+import { CepBuscaComponent } from './cep-busca/cep-busca.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes = [{
   path: '', component: HomeComponent,
 }, {
   path: 'todos', component: TodoListComponent,
+}, {
+  path: 'cep', component: CepBuscaComponent,
 }, {
   path: 'cep/:cep', component: CepDetailsComponent,
 }, {
@@ -27,12 +32,15 @@ const appRoutes = [{
     TodoListComponent,
     TodoItemComponent,
     HomeComponent,
-    CepDetailsComponent
+    CepDetailsComponent,
+    CepExibicaoComponent,
+    CepBuscaComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
