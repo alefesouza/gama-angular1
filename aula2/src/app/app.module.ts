@@ -16,6 +16,8 @@ const appRoutes = [{
   path: 'todos', component: TodoListComponent,
 }, {
   path: 'cep/:cep', component: CepDetailsComponent,
+}, {
+  path: '**', redirectTo: ''
 }];
 
 @NgModule({
