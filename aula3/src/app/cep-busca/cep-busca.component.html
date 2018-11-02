@@ -3,5 +3,10 @@
   <br>
   {{cep}}
   <br>
-  <button>Buscar CEP</button>
+  <button (click)="buscarCep()">Buscar CEP</button>
+
+  <app-cep-exibicao
+    *ngIf="resultado"
+    [resultado]="resultado"
+  ></app-cep-exibicao>
 </div>

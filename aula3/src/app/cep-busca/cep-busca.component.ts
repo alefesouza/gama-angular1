@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BuscadorCepService } from '../buscador-cep.service';
 
 @Component({
   selector: 'app-cep-busca',
@@ -7,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CepBuscaComponent implements OnInit {
   cep = '';
+  resultado = null;
 
-  constructor() { }
+  constructor(
+    private buscadorCepService: BuscadorCepService
+  ) { }
 
   ngOnInit() {
+  }
+
+  buscarCep() {
+    this.buscadorCepService
+      .getCep(this.cep)
+      .subscribe((value) => {
+        this.resultado = value;
+      });
   }
 
 }
