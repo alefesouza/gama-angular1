@@ -13,8 +13,8 @@ export class TodoService {
     private http: HttpClient
   ) { }
 
-  getTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.URL);
+  getTodos(userId: string): Observable<Todo[]> {
+    return this.http.get<Todo[]>('http://localhost:3000/users/' + userId + '/todos');
   }
 
   addTodo(todo: Todo) {

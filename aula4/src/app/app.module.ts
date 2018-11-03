@@ -7,7 +7,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { HomeComponent } from './home/home.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { CepDetailsComponent } from './cep-details/cep-details.component';
 import { CepExibicaoComponent } from './cep-exibicao/cep-exibicao.component';
 import { CepBuscaComponent } from './cep-busca/cep-busca.component';
@@ -18,14 +18,15 @@ import { LoginComponent } from './login/login.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/reducers/auth.reducer';
+import { AuthGuard } from './auth.guard';
 
-const appRoutes = [{
+const appRoutes: Routes = [{
   path: '', component: HomeComponent,
 }, {
-  path: 'todos', component: TodoListComponent,
+  path: 'todos', component: TodoListComponent, canActivate: [AuthGuard]
 }, {
   path: 'todos/add',
-  component: TodoFormComponent
+  component: TodoFormComponent, canActivate: [AuthGuard]
 }, {
   path: 'login', component: LoginComponent
 }, {

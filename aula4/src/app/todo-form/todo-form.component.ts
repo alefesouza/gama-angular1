@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../store/reducers/auth.reducer';
 
 @Component({
   selector: 'app-todo-form',
@@ -14,12 +16,20 @@ export class TodoFormComponent implements OnInit {
     title: '',
     description: '',
     date: '',
+    userId: '',
   };
 
   constructor(
     private todoService: TodoService,
+    private state: Store<AuthState>,
     private router: Router
-  ) { }
+  ) {
+    state.select('auth').subscribe(v => {
+      if (v.user) {
+        this.todo.userId = v.user.localId;
+      }
+    });
+  }
 
   ngOnInit() {
   }

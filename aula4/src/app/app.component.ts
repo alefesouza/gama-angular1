@@ -47,6 +47,8 @@ export class AppComponent {
   }
 
   sair() {
+    localStorage.removeItem('userToken');
+
     this.store.dispatch({
       type: 'LOGOUT',
     });
