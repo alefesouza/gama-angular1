@@ -8,22 +8,18 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./contador.component.css']
 })
 export class ContadorComponent implements OnInit {
-  valorAtual = 0;
+  valor$: Observable<number>;
   contadorSubscription: Subscription = null;
 
   constructor(
     public counterService: CounterService
   ) {
-    this.contadorSubscription = counterService
-      .valorDoContador
-      .subscribe((value) => {
-        this.valorAtual = value;
-        console.log(value);
-      });
+    this.valor$ = counterService
+      .valorDoContador;
   }
 
   onUnsubscribeClick() {
-    this.contadorSubscription.unsubscribe();
+    // this.valor.;
   }
 
   ngOnInit() {

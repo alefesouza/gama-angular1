@@ -13,6 +13,7 @@ import { CepExibicaoComponent } from './cep-exibicao/cep-exibicao.component';
 import { CepBuscaComponent } from './cep-busca/cep-busca.component';
 import { FormsModule } from '@angular/forms';
 import { TodoFormComponent } from './todo-form/todo-form.component';
+import { BoolPipe } from './bool.pipe';
 
 const appRoutes = [{
   path: '', component: HomeComponent,
@@ -39,7 +40,8 @@ const appRoutes = [{
     CepDetailsComponent,
     CepExibicaoComponent,
     CepBuscaComponent,
-    TodoFormComponent
+    TodoFormComponent,
+    BoolPipe
   ],
   imports: [
     BrowserModule,
