@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MessageState } from '../store/reducers/messages.reducer';
 import { AddMessageAction, DeleteMessageAction } from '../store/actions/messages.actions';
+import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -10,15 +12,16 @@ import { AddMessageAction, DeleteMessageAction } from '../store/actions/messages
 })
 export class ChatComponent implements OnInit {
   messageText = '';
-  messagesList = [];
+  messagesList$: Observable<any>;
 
   constructor(
     private store: Store<MessageState>
   ) {
-    store.select('messages').subscribe(v => {
-      console.log(v);
-      this.messagesList = v.messagesList;
-    });
+    this.messagesList$ = store
+      .select('messages')
+      .pipe(
+        pluck('messagesList')
+      );
   }
 
   ngOnInit() {
