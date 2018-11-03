@@ -1,0 +1,8 @@
+<p>
+  contador.component.html: {{ valor$ | async }}
+</p>
+
+<button (click)="aumentarContador()">Aumentar</button>
+<button (click)="diminuirContador()">Diminuir</button>
+
+<button (click)="onUnsubscribeClick()">Desinscrever</button>
