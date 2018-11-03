@@ -5,6 +5,19 @@
   <a routerLink="/todos">Todos</a> |
   <a routerLink="/todos/add">Adicionar todo</a> |
   <a routerLink="/cep">CEP</a>
+
+  <div *ngIf="!(loggedUser$ | async); else dadosDoUsuario">
+    <a routerLink="/login">Login</a> |
+    <a routerLink="/cadastro">Cadastrar</a>
+  </div>
+
+  <ng-template #dadosDoUsuario>
+    <div>
+      Olá {{ (loggedUser$ | async).email }}
+      <br>
+      <button (click)="sair()">Sair</button>
+    </div>
+  </ng-template>
 </div>
 
 <!-- app.component.html: {{ valorAtual }}

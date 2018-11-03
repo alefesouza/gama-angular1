@@ -14,6 +14,10 @@ import { CepBuscaComponent } from './cep-busca/cep-busca.component';
 import { FormsModule } from '@angular/forms';
 import { TodoFormComponent } from './todo-form/todo-form.component';
 import { BoolPipe } from './bool.pipe';
+import { LoginComponent } from './login/login.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './store/reducers/auth.reducer';
 
 const appRoutes = [{
   path: '', component: HomeComponent,
@@ -22,6 +26,10 @@ const appRoutes = [{
 }, {
   path: 'todos/add',
   component: TodoFormComponent
+}, {
+  path: 'login', component: LoginComponent
+}, {
+  path: 'cadastro', component: CadastroComponent
 }, {
   path: 'cep', component: CepBuscaComponent,
 }, {
@@ -41,13 +49,18 @@ const appRoutes = [{
     CepExibicaoComponent,
     CepBuscaComponent,
     TodoFormComponent,
-    BoolPipe
+    BoolPipe,
+    LoginComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    StoreModule.forRoot({
+      auth: authReducer,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CounterService } from './counter.service';
 import { map, debounceTime } from 'rxjs/operators';
+import { AuthState } from './store/reducers/auth.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,24 +14,42 @@ import { map, debounceTime } from 'rxjs/operators';
 })
 export class AppComponent {
   title = 'aula2';
-  valorAtual = 0;
+  loggedUser$: Observable<any>;
 
   constructor(
-    public counterService: CounterService
+    private store: Store<AuthState>,
+    private authService: AuthService,
   ) {
-    const observable = counterService.valorDoContador
+    this.loggedUser$ = store
+      .select('auth')
       .pipe(
-        debounceTime(1000),
-        map(v => v * 2)
-      )
-      .subscribe((value) => {
-        console.log(value);
-        this.valorAtual = value;
+        pluck('user')
+      );
 
-        if (value > 10) {
-          observable.unsubscribe();
-        }
+    const userToken = localStorage.getItem('userToken');
+
+    if (userToken) {
+      authService.checkToken(userToken).subscribe((v: any) => {
+        this.store.dispatch({
+          type: 'SET_USER',
+          payload: {
+            user: {
+              email: v.users[0].email,
+              localId: v.users[0].localId,
+            },
+            token: userToken,
+          }
+        });
+      }, error => {
+        localStorage.removeItem('userToken');
       });
+    }
+  }
+
+  sair() {
+    this.store.dispatch({
+      type: 'LOGOUT',
+    });
   }
 
 }
