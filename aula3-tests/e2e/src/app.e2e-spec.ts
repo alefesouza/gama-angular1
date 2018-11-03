@@ -9,6 +9,11 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to aula3-tests!');
+
+    page.getAumentarButton().click();
+    page.getAumentarButton().click();
+    page.getAumentarButton().click();
+
+    expect(page.getCounterText()).toBe('3');
   });
 });
