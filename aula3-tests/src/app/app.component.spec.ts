@@ -28,6 +28,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('#title').textContent).toContain('aula3-tests');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to aula3-tests!');
   });
 });
