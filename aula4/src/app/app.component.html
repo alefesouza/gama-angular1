@@ -1,29 +1,46 @@
-<h1>Hello World</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">To-Do List</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<div>
-  <a routerLink="/">Home</a> |
-  <a routerLink="/todos">Todos</a> |
-  <a routerLink="/todos/add">Adicionar todo</a> |
-  <a routerLink="/cep">CEP</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"routerLink="/todos">Todos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"routerLink="/todos/add">Adicionar todo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"routerLink="/cep">CEP</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <div *ngIf="!(loggedUser$ | async); else dadosDoUsuario">
+        <li class="nav-item">
+          <a class="nav-link"routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cadastro">Cadastrar</a>
+        </li>
+      </div>
 
-  <div *ngIf="!(loggedUser$ | async); else dadosDoUsuario">
-    <a routerLink="/login">Login</a> |
-    <a routerLink="/cadastro">Cadastrar</a>
+      <ng-template #dadosDoUsuario>
+        <li class="nav-item">
+          <a class="nav-link"routerLink="/me">Olá {{ (loggedUser$ | async).email }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cep" (click)="sair()">Sair</a>
+        </li>
+      </ng-template>
+    </ul>
   </div>
+</nav>
 
-  <ng-template #dadosDoUsuario>
-    <div>
-      Olá {{ (loggedUser$ | async).email }}
-      <br>
-      <button (click)="sair()">Sair</button>
-    </div>
-  </ng-template>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
-
-<!-- app.component.html: {{ valorAtual }}
-
-<app-contador></app-contador> -->
-
-<!-- <app-todo-list></app-todo-list> -->
-
-<router-outlet></router-outlet>

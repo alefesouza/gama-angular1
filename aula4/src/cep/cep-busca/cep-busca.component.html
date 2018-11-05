@@ -1,9 +1,7 @@
 <div>
-  <input type="text" [(ngModel)]="cep">
-  <br>
+  <input type="text" [(ngModel)]="cep" class="form-control mb-2">
   {{cep}}
-  <br>
-  <button (click)="buscarCep()">Buscar CEP</button>
+  <button (click)="buscarCep()" class="btn mt-2">Buscar CEP</button>
 
   <app-cep-exibicao
     *ngIf="resultado"

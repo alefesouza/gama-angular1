@@ -14,7 +14,7 @@ const initialState = {
   token: null,
 };
 
-export const authReducer: ActionReducer<AuthState> = (state = initialState, action: any) => {
+export function authReducer (state = initialState, action: any) {
 
   switch (action.type) {
     case 'SET_USER':
@@ -32,4 +32,4 @@ export const authReducer: ActionReducer<AuthState> = (state = initialState, acti
   }
 
   return state;
-};
+}
