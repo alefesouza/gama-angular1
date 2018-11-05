@@ -13,7 +13,7 @@
 
   <ng-template #dadosDoUsuario>
     <div>
-      Olá {{ (loggedUser$ | async).email }}
+      Olá {{ (loggedUser$ | async)?.email }}
       <br>
       <button (click)="sair()">Sair</button>
     </div>

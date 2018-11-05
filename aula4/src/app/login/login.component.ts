@@ -2,53 +2,40 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/reducers/auth.reducer';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   email =  '';
   senha = '';
 
   constructor(
-    private authService: AuthService,
-    private store: Store<AuthState>
+    private afAuth: AngularFireAuth
   ) {
-    store.select('auth').subscribe((v) => {
+    afAuth.user.subscribe((v) => {
       console.log(v);
     });
   }
 
   onSubmitClick() {
-    this.authService.logIn(this.email, this.senha)
-      .subscribe((v: any) => {
-        localStorage.setItem('userToken', v.idToken);
-
-        this.store.dispatch({
-          type: 'SET_USER',
-          payload: {
-            token: v.idToken,
-            user: {
-              email: v.email,
-              localId: v.localId,
-            }
-          },
-        });
-
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.senha)
+      .then((v: any) => {
+        console.log(v);
         alert('Usuário logado com sucesso');
       }, error => {
-        console.log(error);
-
-        switch (error.error.error.message) {
-          case 'EMAIL_NOT_FOUND':
-            alert('E-mail não encontrado');
+        switch (error.code) {
+          case 'auth/user-not-found':
+            alert('Usuário não encontrado');
           break;
-          case 'INVALID_PASSWORD':
+          case 'auth/wrong-password':
             alert('Senha inválida');
           break;
-          case 'USER_DISABLED':
+          case 'auth/user-disabled':
             alert('Usuário desabilitado');
           break;
           default:
@@ -58,7 +45,17 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  onFacebookButtonClick() {
+    const provider = new firebase.auth.FacebookAuthProvider();
 
-  ngOnInit() {
+    this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(v => {
+        console.log(v);
+        alert('Usuário logado com sucesso via Facebook');
+      }, error => {
+        console.log(error);
+        alert('Erro ao fazer login');
+      });
   }
 }

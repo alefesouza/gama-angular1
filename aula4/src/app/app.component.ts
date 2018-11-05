@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -13,45 +15,17 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'aula2';
-  loggedUser$: Observable<any>;
+  loggedUser$: Observable<firebase.User>;
 
   constructor(
-    private store: Store<AuthState>,
-    private authService: AuthService,
+    private afAuth: AngularFireAuth,
+    private afFirestore: AngularFirestore
   ) {
-    this.loggedUser$ = store
-      .select('auth')
-      .pipe(
-        pluck('user')
-      );
-
-    const userToken = localStorage.getItem('userToken');
-
-    if (userToken) {
-      authService.checkToken(userToken).subscribe((v: any) => {
-        this.store.dispatch({
-          type: 'SET_USER',
-          payload: {
-            user: {
-              email: v.users[0].email,
-              localId: v.users[0].localId,
-            },
-            token: userToken,
-          }
-        });
-      }, error => {
-        localStorage.removeItem('userToken');
-      });
-    }
+    this.loggedUser$ = afAuth.user;
   }
 
   sair() {
-    localStorage.removeItem('userToken');
-
-    this.store.dispatch({
-      type: 'LOGOUT',
-    });
+    this.afAuth.auth.signOut();
   }
 
 }

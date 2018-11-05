@@ -8,9 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CepDetailsComponent } from './cep-details/cep-details.component';
-import { CepExibicaoComponent } from './cep-exibicao/cep-exibicao.component';
-import { CepBuscaComponent } from './cep-busca/cep-busca.component';
 import { FormsModule } from '@angular/forms';
 import { TodoFormComponent } from './todo-form/todo-form.component';
 import { BoolPipe } from './bool.pipe';
@@ -19,6 +16,10 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/reducers/auth.reducer';
 import { AuthGuard } from './auth.guard';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [{
   path: '', component: HomeComponent,
@@ -32,10 +33,6 @@ const appRoutes: Routes = [{
 }, {
   path: 'cadastro', component: CadastroComponent
 }, {
-  path: 'cep', component: CepBuscaComponent,
-}, {
-  path: 'cep/:cep', component: CepDetailsComponent,
-}, {
   path: '**', redirectTo: ''
 }];
 
@@ -46,22 +43,23 @@ const appRoutes: Routes = [{
     TodoListComponent,
     TodoItemComponent,
     HomeComponent,
-    CepDetailsComponent,
-    CepExibicaoComponent,
-    CepBuscaComponent,
     TodoFormComponent,
     BoolPipe,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
   ],
   imports: [
     BrowserModule,
+    /* .. */
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     StoreModule.forRoot({
       auth: authReducer,
     }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

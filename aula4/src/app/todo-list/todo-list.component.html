@@ -1,6 +1,5 @@
 <div>
   <app-contador></app-contador>
-
   <ul>
     <li *ngFor="let todo of todos$ | async">
       <app-todo-item [item]="todo"></app-todo-item>

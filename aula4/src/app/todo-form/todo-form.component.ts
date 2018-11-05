@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AuthState } from '../store/reducers/auth.reducer';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.css']
 })
-export class TodoFormComponent implements OnInit {
+export class TodoFormComponent {
   todo: Todo = {
-    id: 0,
+    id: '',
     finished: false,
     title: '',
     description: '',
@@ -21,29 +20,26 @@ export class TodoFormComponent implements OnInit {
 
   constructor(
     private todoService: TodoService,
-    private state: Store<AuthState>,
-    private router: Router
+    private router: Router,
+    private afAuth: AngularFireAuth
   ) {
-    state.select('auth').subscribe(v => {
-      if (v.user) {
-        this.todo.userId = v.user.localId;
+    afAuth.user.subscribe(v => {
+      if (v !== null) {
+        this.todo.userId = v.uid;
       }
     });
   }
 
-  ngOnInit() {
-  }
-
   onFormSend() {
     this.todoService.addTodo(this.todo)
-    .subscribe(valor => {
-      console.log(valor);
-      alert('To-Do adicionado com sucesso');
+      .then(valor => {
+        console.log(valor);
+        alert('To-Do adicionado com sucesso');
 
-      this.router.navigateByUrl('/todos');
-    }, error => {
-      alert('Erro ao adicionar');
-    });
+        this.router.navigateByUrl('/todos');
+      }, error => {
+        alert('Erro ao adicionar');
+      });
   }
 
 }

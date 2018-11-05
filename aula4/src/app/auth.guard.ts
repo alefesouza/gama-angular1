@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthState } from './store/reducers/auth.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { map } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private store: Store<AuthState>,
+    private afAuth: AngularFireAuth,
     private router: Router
   ) {
 
@@ -20,9 +21,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select('auth').pipe(
-      map(v => {
-        if (v.user == null) {
+    return this.afAuth.user.pipe(
+      map(user => {
+        if (user == null) {
           this.router.navigateByUrl('/');
           return false;
         }

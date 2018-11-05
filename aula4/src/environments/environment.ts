@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyD-4Dbg_3Xw32erCdzjX9v9lADwEIurV-Y',
+    authDomain: 'gama-angular-99215.firebaseapp.com',
+    databaseURL: 'https://gama-angular-99215.firebaseio.com',
+    projectId: 'gama-angular-99215',
+    storageBucket: 'gama-angular-99215.appspot.com',
+    messagingSenderId: '578889514564'
+  }
 };
 
 /*

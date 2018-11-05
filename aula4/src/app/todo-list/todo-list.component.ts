@@ -3,6 +3,7 @@ import { TodoService } from '../todo.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/reducers/auth.reducer';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,11 +15,11 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private todoService: TodoService,
-    private store: Store<AuthState>
+    private afAuth: AngularFireAuth
   ) {
-    store.select('auth').subscribe(v => {
-      if (v.user != null) {
-        this.todos$ = todoService.getTodos(v.user.localId);
+    afAuth.user.subscribe(v => {
+      if (v !== null) {
+        this.todos$ = todoService.getTodos(v.uid);
       }
     });
   }
