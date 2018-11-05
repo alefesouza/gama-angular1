@@ -25,11 +25,13 @@ const appRoutes: Routes = [{
   path: 'todos/add',
   component: TodoFormComponent, canActivate: [AuthGuard]
 }, {
+  path: 'todos/:id/edit', component: TodoFormComponent, canActivate: [AuthGuard]
+}, {
   path: 'login', component: LoginComponent
 }, {
   path: 'cadastro', component: CadastroComponent
 }, {
-  path: 'cep', loadChildren: '../cep/cep.module#CepModule'
+  path: 'cep', loadChildren: '../cep/cep.module#CepModule',
 }, {
   path: '**', redirectTo: ''
 }];

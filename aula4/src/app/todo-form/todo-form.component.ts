@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/reducers/auth.reducer';
 
@@ -18,15 +18,26 @@ export class TodoFormComponent implements OnInit {
     date: '',
     userId: '',
   };
+  isAdding = true;
 
   constructor(
     private todoService: TodoService,
     private state: Store<AuthState>,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     state.select('auth').subscribe(v => {
       if (v.user) {
         this.todo.userId = v.user.localId;
+      }
+    });
+
+    activatedRoute.params.subscribe((params) => {
+      if (params.id) {
+        this.isAdding = false;
+        this.todoService.getTodo(params.id).subscribe(todo => {
+          this.todo = todo;
+        });
       }
     });
   }
@@ -35,15 +46,28 @@ export class TodoFormComponent implements OnInit {
   }
 
   onFormSend() {
-    this.todoService.addTodo(this.todo)
-    .subscribe(valor => {
-      console.log(valor);
-      alert('To-Do adicionado com sucesso');
+    if (this.isAdding) {
+      this.todoService.addTodo(this.todo)
+      .subscribe(valor => {
+        console.log(valor);
+        alert('To-Do adicionado com sucesso');
 
-      this.router.navigateByUrl('/todos');
-    }, error => {
-      alert('Erro ao adicionar');
-    });
+        this.router.navigateByUrl('/todos');
+      }, error => {
+        alert('Erro ao adicionar');
+      });
+    } else {
+      this.todoService.updateTodo(this.todo)
+      .subscribe(valor => {
+        console.log(valor);
+        alert('To-Do atualizado com sucesso');
+
+        this.router.navigateByUrl('/todos');
+      }, error => {
+        alert('Erro ao atualizar');
+      });
+    }
+
   }
 
 }

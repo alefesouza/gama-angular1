@@ -17,8 +17,16 @@ export class TodoService {
     return this.http.get<Todo[]>('http://localhost:3000/users/' + userId + '/todos');
   }
 
+  getTodo(id: number): Observable<Todo> {
+    return this.http.get<Todo>('http://localhost:3000/todos/' + id);
+  }
+
   addTodo(todo: Todo) {
     return this.http.post(this.URL, todo);
+  }
+
+  updateTodo(todo: Todo) {
+    return this.http.put(this.URL + '/' + todo.id, todo);
   }
 
 }

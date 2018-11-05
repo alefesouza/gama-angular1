@@ -3,7 +3,11 @@
 
   <ul>
     <li *ngFor="let todo of todos$ | async">
-      <app-todo-item [item]="todo"></app-todo-item>
+      <app-todo-item
+        [item]="todo"
+        (delete)="onDeleteTodo($event)"
+        (edit)="onEditTodo($event)"
+      ></app-todo-item>
     </li>
   </ul>
 </div>

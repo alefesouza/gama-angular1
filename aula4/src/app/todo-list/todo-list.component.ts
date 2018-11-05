@@ -3,6 +3,7 @@ import { TodoService } from '../todo.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/reducers/auth.reducer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,7 +15,8 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private todoService: TodoService,
-    private store: Store<AuthState>
+    private store: Store<AuthState>,
+    private router: Router
   ) {
     store.select('auth').subscribe(v => {
       if (v.user != null) {
@@ -24,6 +26,14 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onEditTodo(id: number) {
+    this.router.navigateByUrl('todos/' + id + '/edit');
+  }
+
+  onDeleteTodo(id: number) {
+
   }
 
 }
