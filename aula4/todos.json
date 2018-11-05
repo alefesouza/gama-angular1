@@ -2,7 +2,7 @@
   "todos": [
     {
       "id": 1,
-      "title": "Aula 5",
+      "title": "Aula 4545454",
       "description": "Finalizando",
       "finished": false,
       "date": "2018-11-05",
@@ -25,28 +25,12 @@
       "userId": "ONaymSgMORQxHcMIUEVv7tYKUIm2"
     },
     {
-      "id": 4,
-      "finished": true,
-      "title": "sdfsdfsdfsf",
-      "description": "dsfdsfdsfsdf",
-      "date": "2018-10-6",
-      "userId": "lZVlQKY70ngSRik0gfljOgfvfHH2"
-    },
-    {
       "id": 5,
       "finished": true,
       "title": "dsfsfsdfsf",
       "description": "dsfsdfdf",
       "date": "sdfsdfsdf",
       "userId": "SUeyvT7oYUVB5DlsyrysGGufIKG3"
-    },
-    {
-      "id": 6,
-      "finished": true,
-      "title": "rrrrr",
-      "description": "rrrrr",
-      "date": "2018-11-21",
-      "userId": "lZVlQKY70ngSRik0gfljOgfvfHH2"
     }
   ]
 }

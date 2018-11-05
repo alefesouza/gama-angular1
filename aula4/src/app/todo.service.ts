@@ -29,4 +29,8 @@ export class TodoService {
     return this.http.put(this.URL + '/' + todo.id, todo);
   }
 
+  deleteTodo(id: number) {
+    return this.http.delete(this.URL + '/' + id);
+  }
+
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/reducers/auth.reducer';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',
@@ -33,7 +34,19 @@ export class TodoListComponent implements OnInit {
   }
 
   onDeleteTodo(id: number) {
+    if (!confirm('Deseja mesmo apagar esse to-do?')) {
+      return;
+    }
 
+    this.todoService.deleteTodo(id).subscribe(() => {
+      this.todos$ = this.todos$.pipe(
+        map(todos => {
+          return todos.filter(t => t.id !== id);
+        })
+      );
+
+      alert('To-Do apagado com sucesso');
+    });
   }
 
 }
