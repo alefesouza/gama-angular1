@@ -1,0 +1,29 @@
+<h1>Hello World</h1>
+
+<div>
+  <a routerLink="/">Home</a> |
+  <a routerLink="/todos">Todos</a> |
+  <a routerLink="/todos/add">Adicionar todo</a> |
+  <a routerLink="/cep">CEP</a>
+
+  <div *ngIf="!(loggedUser$ | async); else dadosDoUsuario">
+    <a routerLink="/login">Login</a> |
+    <a routerLink="/cadastro">Cadastrar</a>
+  </div>
+
+  <ng-template #dadosDoUsuario>
+    <div>
+      Olá {{ (loggedUser$ | async)?.email }}
+      <br>
+      <button (click)="sair()">Sair</button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- app.component.html: {{ valorAtual }}
+
+<app-contador></app-contador> -->
+
+<!-- <app-todo-list></app-todo-list> -->
+
+<router-outlet></router-outlet>

@@ -1,0 +1,12 @@
+<div>
+  <input type="text" [(ngModel)]="cep">
+  <br>
+  {{cep}}
+  <br>
+  <button (click)="buscarCep()">Buscar CEP</button>
+
+  <app-cep-exibicao
+    *ngIf="resultado"
+    [resultado]="resultado"
+  ></app-cep-exibicao>
+</div>
