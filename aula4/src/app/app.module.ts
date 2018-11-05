@@ -8,9 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CepDetailsComponent } from './cep-details/cep-details.component';
-import { CepExibicaoComponent } from './cep-exibicao/cep-exibicao.component';
-import { CepBuscaComponent } from './cep-busca/cep-busca.component';
 import { FormsModule } from '@angular/forms';
 import { TodoFormComponent } from './todo-form/todo-form.component';
 import { BoolPipe } from './bool.pipe';
@@ -32,9 +29,7 @@ const appRoutes: Routes = [{
 }, {
   path: 'cadastro', component: CadastroComponent
 }, {
-  path: 'cep', component: CepBuscaComponent,
-}, {
-  path: 'cep/:cep', component: CepDetailsComponent,
+  path: 'cep', loadChildren: '../cep/cep.module#CepModule'
 }, {
   path: '**', redirectTo: ''
 }];
@@ -46,9 +41,6 @@ const appRoutes: Routes = [{
     TodoListComponent,
     TodoItemComponent,
     HomeComponent,
-    CepDetailsComponent,
-    CepExibicaoComponent,
-    CepBuscaComponent,
     TodoFormComponent,
     BoolPipe,
     LoginComponent,
