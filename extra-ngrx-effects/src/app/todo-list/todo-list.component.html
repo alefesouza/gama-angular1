@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let todo of todos$ | async">
+    Título: {{ todo.title }}<br>
+    Descrição: {{ todo.description }}<br>
+    Data: {{ todo.date | date:'dd/MM/yyyy' }}
+  </li>
+</ul>

@@ -7,7 +7,6 @@ export class AddMessageAction implements Action {
     text: string,
     date: Date,
   }) {
-
   }
 }
 
