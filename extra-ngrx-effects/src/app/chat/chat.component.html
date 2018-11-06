@@ -1,0 +1,11 @@
+<input type="text" [(ngModel)]="messageText">
+
+<button (click)="onSendClick()">Enviar</button>
+
+<ul>
+  <li *ngFor="let message of messagesList$ | async; let i = index">
+    Texto: {{ message.text }}<br>
+    Data: {{ message.date | date: 'dd/MM/yyyy HH:mm' }}<br>
+    <button (click)="deleteMessage(i)">Apagar</button>
+  </li>
+</ul>
